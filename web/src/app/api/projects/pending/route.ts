@@ -1,12 +1,12 @@
-import {projectsCol, usersCol} from "@/lib/db";
-import {getAuthUser, getMaintainerCategories} from "@/lib/auth";
+import { projectsCol, usersCol } from "@/lib/db";
+import { getAuthUser, hasMinRole } from "@/lib/auth";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-	const auth = getAuthUser(request);
-	if (!auth) {
-		return Response.json({error: "Unauthorized"}, {status: 401});
-	}
+  const auth = getAuthUser(request);
+  if (!auth || !hasMinRole(auth.role, "admin")) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
 
 	let query = projectsCol.ref.where("status", "==", "submitted");
 

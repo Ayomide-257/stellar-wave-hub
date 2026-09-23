@@ -102,7 +102,7 @@ create policy projects_owner_update
     ) is not null
     and (
       user_id = (auth.jwt() ->> 'app_user_id')::bigint
-      or coalesce(auth.jwt() ->> 'app_role', '') = 'admin'
+      or coalesce(auth.jwt() ->> 'app_role', '') in ('admin', 'maintainer')
     )
   )
   with check (
@@ -111,7 +111,7 @@ create policy projects_owner_update
     ) is not null
     and (
       user_id = (auth.jwt() ->> 'app_user_id')::bigint
-      or coalesce(auth.jwt() ->> 'app_role', '') = 'admin'
+      or coalesce(auth.jwt() ->> 'app_role', '') in ('admin', 'maintainer')
     )
   );
 
@@ -125,7 +125,7 @@ create policy projects_owner_delete
     ) is not null
     and (
       user_id = (auth.jwt() ->> 'app_user_id')::bigint
-      or coalesce(auth.jwt() ->> 'app_role', '') = 'admin'
+      or coalesce(auth.jwt() ->> 'app_role', '') in ('admin', 'maintainer')
     )
   );
 
@@ -162,7 +162,7 @@ create policy ratings_owner_update
     ) is not null
     and (
       user_id = (auth.jwt() ->> 'app_user_id')::bigint
-      or coalesce(auth.jwt() ->> 'app_role', '') = 'admin'
+      or coalesce(auth.jwt() ->> 'app_role', '') in ('admin', 'maintainer')
     )
   )
   with check (
@@ -171,7 +171,7 @@ create policy ratings_owner_update
     ) is not null
     and (
       user_id = (auth.jwt() ->> 'app_user_id')::bigint
-      or coalesce(auth.jwt() ->> 'app_role', '') = 'admin'
+      or coalesce(auth.jwt() ->> 'app_role', '') in ('admin', 'maintainer')
     )
   );
 
@@ -214,7 +214,7 @@ create policy ratings_owner_delete on public.ratings
     ) is not null
     and (
       user_id = (auth.jwt() ->> 'app_user_id')::bigint
-      or coalesce(auth.jwt() ->> 'app_role', '') = 'admin'
+      or coalesce(auth.jwt() ->> 'app_role', '') in ('admin', 'maintainer')
     )
   );
 

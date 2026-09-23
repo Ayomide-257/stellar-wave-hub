@@ -8,9 +8,13 @@ create table if not exists public.users (
   username text not null,
   email text,
   password_hash text,
-  role text not null default 'contributor',
+  role text not null default 'contributor' check (role in ('contributor', 'maintainer', 'admin')),
   stellar_address text,
   github_url text,
+  twitter_url text,
+  discord_username text,
+  telegram_url text,
+  website_url text,
   bio text,
   auth_method text,
   created_at timestamptz not null default now()
@@ -32,9 +36,16 @@ create table if not exists public.projects (
   tags text,
   website_url text,
   github_url text,
+  github_repos jsonb default '[]'::jsonb,
   logo_url text,
+  research_images jsonb default '[]'::jsonb,
+  stellar_network text not null default 'mainnet' check (stellar_network in ('testnet', 'mainnet')),
   user_id bigint not null,
   featured integer not null default 0,
+  featured_tx_hash text,
+  featured_amount numeric default 100,
+  featured_expires_at timestamptz,
+  promo_code text,
   rejection_reason text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
@@ -76,6 +87,7 @@ create table if not exists public.ratings (
   innovation_score integer,
   usability_score integer,
   review_text text,
+  tx_hash text,
   created_at timestamptz not null default now(),
   constraint ratings_project_id_fkey
     foreign key (project_id)
@@ -124,6 +136,18 @@ create table if not exists public.financial_snapshots (
 
 create index if not exists financial_snapshots_project_id_idx on public.financial_snapshots (project_id);
 create index if not exists financial_snapshots_created_at_idx on public.financial_snapshots (created_at desc);
+
+create table if not exists public.promo_codes (
+  id bigserial primary key,
+  code text not null,
+  percent_off integer not null check (percent_off > 0 and percent_off <= 100),
+  max_uses integer check (max_uses is null or max_uses > 0),
+  uses integer not null default 0,
+  expires_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create unique index if not exists promo_codes_code_key on public.promo_codes (upper(code));
 
 -- Seed counters used by nextId()
 insert into public.counters (name, value)
