@@ -55,12 +55,12 @@ export default function Navbar() {
 								>
 									My Projects
 								</Link>
-								{user.role === "admin" && (
+								{(user.role === "admin" || user.role === "maintainer") && (
 									<Link
 										href="/admin"
 										className="px-4 py-2 rounded-lg text-sm font-medium text-solar hover:text-solar-bright hover:bg-solar/10 transition-all"
 									>
-										Admin
+										Review
 									</Link>
 								)}
 							</>
@@ -163,13 +163,13 @@ export default function Navbar() {
 							>
 								My Projects
 							</Link>
-							{user.role === "admin" && (
+							{(user.role === "admin" || user.role === "maintainer") && (
 								<Link
 									href="/admin"
 									className="block px-4 py-2.5 rounded-lg text-sm font-medium text-solar hover:text-solar-bright hover:bg-solar/10"
 									onClick={() => setMobileOpen(false)}
 								>
-									Admin
+									Review
 								</Link>
 							)}
 							<div className="pt-2 border-t border-dust/30">
