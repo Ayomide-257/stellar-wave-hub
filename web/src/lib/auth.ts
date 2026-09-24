@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { ROLES, hasMinRole } from "./roles";
+import { maintainerCategoriesCol } from "./db";
 
 const JWT_SECRET = process.env.JWT_SECRET || "stellar-wave-hub-dev-secret";
 
@@ -57,7 +58,7 @@ export async function getMaintainerCategories(userId: number): Promise<string[]>
 
   if (snap.empty) return [];
 
-  return snap.docs.map((d) => d.data().category);
+  return snap.docs.map((d: { data: () => Record<string, unknown> }) => String(d.data().category));
 }
 
 // Check if a user is authorized to moderate a project based on category

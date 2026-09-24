@@ -1,10 +1,10 @@
 import { projectsCol, usersCol } from "@/lib/db";
-import { getAuthUser, hasMinRole } from "@/lib/auth";
+import { getAuthUser, hasMinRole, getMaintainerCategories } from "@/lib/auth";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const auth = getAuthUser(request);
-  if (!auth || !hasMinRole(auth.role, "admin")) {
+  if (!auth || !hasMinRole(auth.role, "maintainer")) {
     return Response.json({ error: "Forbidden" }, { status: 403 });
   }
 
