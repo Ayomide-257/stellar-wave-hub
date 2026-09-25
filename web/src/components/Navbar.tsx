@@ -67,6 +67,7 @@ export default function Navbar() {
 									<Link
 										href="/maintainer"
 										className="px-4 py-2 rounded-lg text-sm font-medium text-plasma hover:text-plasma-bright hover:bg-plasma/10 transition-all"
+										className="px-4 py-2 rounded-lg text-sm font-medium text-solar hover:text-solar-bright hover:bg-solar/10 transition-all"
 									>
 										Maintainer
 									</Link>
@@ -74,7 +75,7 @@ export default function Navbar() {
 								{hasMinRole(user.role, "admin") && (
 									<Link
 										href="/admin"
-										className="px-4 py-2 rounded-lg text-sm font-medium text-solar hover:text-solar-bright hover:bg-solar/10 transition-all"
+										className="px-4 py-2 rounded-lg text-sm font-medium text-amber-400 hover:text-amber-300 hover:bg-amber-400/10 transition-all"
 									>
 										Admin
 									</Link>
@@ -207,6 +208,7 @@ export default function Navbar() {
 								<Link
 									href="/maintainer"
 									className="block px-4 py-2.5 rounded-lg text-sm font-medium text-plasma hover:text-plasma-bright hover:bg-plasma/10"
+									className="block px-4 py-2.5 rounded-lg text-sm font-medium text-solar hover:text-solar-bright hover:bg-solar/10"
 									onClick={() => setMobileOpen(false)}
 								>
 									Maintainer
@@ -215,7 +217,7 @@ export default function Navbar() {
 							{hasMinRole(user.role, "admin") && (
 								<Link
 									href="/admin"
-									className="block px-4 py-2.5 rounded-lg text-sm font-medium text-solar hover:text-solar-bright hover:bg-solar/10"
+									className="block px-4 py-2.5 rounded-lg text-sm font-medium text-amber-400 hover:text-amber-300 hover:bg-amber-400/10"
 									onClick={() => setMobileOpen(false)}
 								>
 									Admin
