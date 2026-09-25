@@ -63,6 +63,14 @@ export default function Navbar() {
 								>
 									My Projects
 								</Link>
+								{hasMinRole(user.role, "maintainer") && (
+									<Link
+										href="/maintainer"
+										className="px-4 py-2 rounded-lg text-sm font-medium text-plasma hover:text-plasma-bright hover:bg-plasma/10 transition-all"
+									>
+										Maintainer
+									</Link>
+								)}
 								{hasMinRole(user.role, "admin") && (
 									<Link
 										href="/admin"
@@ -195,6 +203,15 @@ export default function Navbar() {
 							>
 								My Projects
 							</Link>
+							{hasMinRole(user.role, "maintainer") && (
+								<Link
+									href="/maintainer"
+									className="block px-4 py-2.5 rounded-lg text-sm font-medium text-plasma hover:text-plasma-bright hover:bg-plasma/10"
+									onClick={() => setMobileOpen(false)}
+								>
+									Maintainer
+								</Link>
+							)}
 							{hasMinRole(user.role, "admin") && (
 								<Link
 									href="/admin"
